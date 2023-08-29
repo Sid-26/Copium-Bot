@@ -1,8 +1,10 @@
 import discord
+from db import findCourses
 from dotenv import load_dotenv
+import commands
 import os
 load_dotenv()
-key = os.environ.get_env('BOT_KEY')
+key = os.getenv('BOT_KEY')
 
 
 intents = discord.Intents.default()
@@ -13,6 +15,7 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
+    commands.__init__(client)
     print(f'We have logged in as {client.user}')
 
 
@@ -24,4 +27,6 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello! :avgcsmajor:')
 
-client.run('')
+    
+
+client.run(key)
